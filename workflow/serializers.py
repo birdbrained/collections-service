@@ -8,6 +8,7 @@ from rest_framework_json_api.relations import ResourceRelatedField, SerializerMe
 from django.contrib.auth.models import User, Group
 
 from workflow import models
+from api import models as api_models
 
 
 class Workflow(ModelSerializer):
@@ -379,6 +380,13 @@ class Case(ModelSerializer):
         required=False
     )
 
+    collection = ResourceRelatedField(
+        queryset=api_models.Collection.objects.all(),
+        many=False,
+        required=False,
+        allow_null=False
+    )
+
     class Meta:
         resource_name = 'cases'
         model = models.Case
@@ -389,6 +397,7 @@ class Case(ModelSerializer):
             'widgets',
             'parameter_aliases',
             'parameters',
+            'collection',
             'stubs'
         ]
 

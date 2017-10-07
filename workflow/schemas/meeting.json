@@ -25,7 +25,7 @@
           "description": "Select the type of event that is being submitted. Events may be \"talk\" or \"poster\"",
           "widgetType": "text-field",
           "parameters": {
-            "value": "event-type"
+            "value": "event-category"
           }
         },
         {
@@ -105,7 +105,8 @@
             "fileData": "file-data",
             "fileName": "file-name",
             "metadata": "metadata",
-            "node": "node"
+            "node": "node",
+            "category": "event-category"
           }
         }
       ]

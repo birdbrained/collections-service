@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import JSONField
-
+import base64
 
 class Workflow(models.Model):
     """Workflow Model"""
@@ -165,7 +165,9 @@ class Parameter(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, blank=False)
+
     value = JSONField(null=True, blank=True, default=None)
+
     properties = JSONField(null=True, blank=True, default={})
 
     stub = models.ForeignKey(
