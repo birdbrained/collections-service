@@ -257,7 +257,7 @@ class Case(models.Model):
     )
 
     collection = models.ForeignKey(
-        'api.Collection',
+        'collection.Collection',
         related_name='collection',
         null=True
     )

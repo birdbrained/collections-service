@@ -1,4 +1,13 @@
-from rest_framework import viewsets
+"""
+Workflow Views
+"""
+
+
+# Imports
+# #############################################################################
+
+
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
@@ -8,7 +17,11 @@ from workflow import models
 from workflow import serializers
 
 
-class Workflow(viewsets.ModelViewSet):
+# ViewSets
+# #############################################################################
+
+
+class Workflow(ModelViewSet):
 
     queryset = models.Workflow.objects.all()
     serializer_class = serializers.Workflow
@@ -20,7 +33,7 @@ class Workflow(viewsets.ModelViewSet):
         return self.queryset
 
 
-class Section(viewsets.ModelViewSet):
+class Section(ModelViewSet):
 
     queryset = models.Section.objects.all()
     serializer_class = serializers.Section
@@ -29,7 +42,7 @@ class Section(viewsets.ModelViewSet):
         return self.queryset
 
 
-class Widget(viewsets.ModelViewSet):
+class Widget(ModelViewSet):
     queryset = models.Widget.objects.all()
 
     serializer_class = serializers.Widget
@@ -38,7 +51,7 @@ class Widget(viewsets.ModelViewSet):
         return self.queryset
 
 
-class ParameterAlias(viewsets.ModelViewSet):
+class ParameterAlias(ModelViewSet):
 
     queryset = models.ParameterAlias.objects.all()
     serializer_class = serializers.ParameterAlias
@@ -47,13 +60,13 @@ class ParameterAlias(viewsets.ModelViewSet):
         return self.queryset
 
 
-class ParameterStub(viewsets.ModelViewSet):
+class ParameterStub(ModelViewSet):
 
     queryset = models.ParameterStub.objects.all()
     serializer_class = serializers.ParameterStub
 
 
-class Parameter(viewsets.ModelViewSet):
+class Parameter(ModelViewSet):
 
     queryset = models.Parameter.objects.all()
     serializer_class = serializers.Parameter
@@ -75,7 +88,7 @@ class Parameter(viewsets.ModelViewSet):
         return queryset
 
 
-class Case(viewsets.ModelViewSet):
+class Case(ModelViewSet):
     queryset = models.Case.objects.all()
     serializer_class = serializers.Case
 
@@ -121,3 +134,7 @@ class Case(viewsets.ModelViewSet):
         for parameter_alias in case.workflow.parameter_aliases.all():
             parameter_alias.cases.add(case)
             parameter_alias.save()
+
+
+# EOF
+# #############################################################################

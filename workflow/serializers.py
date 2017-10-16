@@ -8,7 +8,7 @@ from rest_framework_json_api.relations import ResourceRelatedField, SerializerMe
 from django.contrib.auth.models import User, Group
 
 from workflow import models
-from api import models as api_models
+from collection import models as collection_models
 
 
 class Workflow(ModelSerializer):
@@ -270,7 +270,8 @@ class Parameter(ModelSerializer):
                         through_instance.save()
 
                 else:
-                    set_many(instance, field_name, value)
+                    field = getattr(instance, attr)
+                    field.set(value)
         return instance
 
     def update(self, instance, validated_data):
@@ -304,8 +305,8 @@ class Parameter(ModelSerializer):
                     through_instance.save()
 
             elif attr in info.relations and info.relations[attr].to_many:
-                set_many(instance, attr, value)
-
+                field = getattr(instance, attr)
+                field.set(value)
             else:
                 setattr(instance, attr, value)
 
@@ -381,7 +382,7 @@ class Case(ModelSerializer):
     )
 
     collection = ResourceRelatedField(
-        queryset=api_models.Collection.objects.all(),
+        queryset=collection_models.Collection.objects.all(),
         many=False,
         required=False,
         allow_null=False

@@ -1,5 +1,8 @@
 from rest_framework import permissions
-from api.models import Group, Item, Collection
+from collection.models import (
+    Item,
+    Collection
+)
 
 
 class CanEditCollection(permissions.BasePermission):

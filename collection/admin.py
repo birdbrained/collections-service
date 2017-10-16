@@ -1,10 +1,42 @@
+"""
+#Admin Site Views
+
+- CollectionAdmin
+- ItemAdmin
+- DocumentAdmin
+- CollectionMembershipAdmin
+- SchemaAdmin
+
+"""
+
+
+# Library Imports
+# #############################################################################
+
+
 from django import forms
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin.helpers import ActionForm
-from api.models import Collection, Group, Item
 from guardian.shortcuts import get_objects_for_user, assign_perm
+
+
+# App Imports
+# #############################################################################
+
+
+from collection.models import (
+    Collection,
+    Item,
+    Document,
+    CollectionMembership,
+    Schema
+)
+
+
+# Admin Helpers
+# #############################################################################
 
 
 def approve_item(modeladmin, request, queryset):
@@ -22,12 +54,12 @@ def add_admins(modeladmin, request, queryset):
         user.save()
 
 
+# Admin Classes
+# #############################################################################
+
+
 class AdminForm(ActionForm):
     collection_id = forms.CharField()
-
-
-class GroupAdmin(admin.ModelAdmin):
-    list_display = ('title', 'collection')
 
 
 class ItemAdmin(admin.ModelAdmin):
@@ -42,13 +74,5 @@ class ItemAdmin(admin.ModelAdmin):
         return self.model.objects.filter(collection__in=can_moderate), True
 
 
-class OSFUserAdmin(UserAdmin):
-    model = get_user_model()
-    action_form = AdminForm
-    actions = [add_admins]
-
-
-admin.site.register(Collection)
-admin.site.register(Group, GroupAdmin)
-admin.site.register(Item, ItemAdmin)
-admin.site.register(get_user_model(), OSFUserAdmin)
+# EOF
+# #############################################################################

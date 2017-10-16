@@ -24,6 +24,8 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 INSTALLED_APPS = [
     'api.apps.ApiConfig',
+    'user.apps.UserConfig',
+    "collection.apps.CollectionConfig",
     'workflow.apps.WorkflowConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -174,7 +176,7 @@ CORS_ORIGIN_WHITELIST = (
     'dev-labs-2.cos.io'
 )
 
-AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'user.User'
 
 FIXTURE_DIRS = (
    '/api/fixtures/',
